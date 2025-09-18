@@ -11,14 +11,37 @@ const schema = z.object({
 
 type AuthFormData = z.infer<typeof schema>;
 
-type Country = {
-  name: { common: string };
-  idd: { root: string; suffixes?: string[] };
-  cca2: string;
+
+type CountryCode = {
+  name: string;
+  code: string;
 };
 
-export default function AuthPage() {
-  const [countries, setCountries] = useState<Country[]>([]);
+const COUNTRY_CODES: CountryCode[] = [
+  { name: 'United States', code: '+1' },
+  { name: 'India', code: '+91' },
+  { name: 'United Kingdom', code: '+44' },
+  { name: 'Canada', code: '+1' },
+  { name: 'Australia', code: '+61' },
+  { name: 'Germany', code: '+49' },
+  { name: 'France', code: '+33' },
+  { name: 'Brazil', code: '+55' },
+  { name: 'Japan', code: '+81' },
+  { name: 'China', code: '+86' },
+  { name: 'South Africa', code: '+27' },
+  { name: 'Russia', code: '+7' },
+  { name: 'Mexico', code: '+52' },
+  { name: 'Italy', code: '+39' },
+  { name: 'Spain', code: '+34' },
+  { name: 'Singapore', code: '+65' },
+  { name: 'New Zealand', code: '+64' },
+  { name: 'Pakistan', code: '+92' },
+  { name: 'Bangladesh', code: '+880' },
+  { name: 'Indonesia', code: '+62' },
+  // ...add more as needed
+];
+
+  // No need to fetch countries, use static COUNTRY_CODES
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
   const [otpInput, setOtpInput] = useState('');
@@ -34,15 +57,7 @@ export default function AuthPage() {
     resolver: zodResolver(schema),
   });
 
-  useEffect(() => {
-    fetch('https://restcountries.com/v3.1/all')
-      .then((res) => res.json())
-      .then((data) => {
-        setCountries(
-          data.filter((c: Country) => c.idd && c.idd.root && c.cca2)
-        );
-      });
-  }, []);
+
 
   const onSubmit = (data: AuthFormData) => {
     setLoading(true);
@@ -88,21 +103,11 @@ export default function AuthPage() {
             disabled={otpSent}
           >
             <option value="">Select country</option>
-            {countries.map((c) => {
-              let dialCodes = '';
-              if (c.idd && c.idd.root) {
-                if (c.idd.suffixes && c.idd.suffixes.length > 0) {
-                  dialCodes = c.idd.suffixes.map((s) => c.idd.root + s).join(', ');
-                } else {
-                  dialCodes = c.idd.root;
-                }
-              }
-              return (
-                <option key={c.cca2} value={c.cca2}>
-                  {c.name.common} {dialCodes ? `(${dialCodes})` : ''}
-                </option>
-              );
-            })}
+            {COUNTRY_CODES.map((c) => (
+              <option key={c.code + c.name} value={c.code}>
+                {c.name} ({c.code})
+              </option>
+            ))}
           </select>
           {errors.country && (
             <span className="text-red-500 text-sm">{errors.country.message}</span>
