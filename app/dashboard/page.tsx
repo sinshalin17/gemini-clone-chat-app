@@ -31,7 +31,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-50 dark:bg-gray-900 p-8">
+    <div className="min-h-screen flex flex-col items-center p-8">
       <h1 className="text-2xl font-bold mb-6">Your Chatrooms</h1>
       <form onSubmit={handleCreate} className="flex gap-2 mb-6">
         <input
