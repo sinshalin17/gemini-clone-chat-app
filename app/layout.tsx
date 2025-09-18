@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+  <html lang="en" className="h-full bg-white dark:bg-gray-900">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -47,7 +47,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen h-full bg-white dark:bg-gray-900 transition-colors`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen h-full transition-colors`}
         tabIndex={0}
       >
         <GlobalNav />

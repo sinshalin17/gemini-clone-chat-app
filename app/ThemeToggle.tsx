@@ -2,45 +2,41 @@
 import React, { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   // On mount, sync with localStorage or system preference
   useEffect(() => {
-    const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
-    if (saved === 'dark') {
-      setDark(true);
-      document.documentElement.classList.add('dark');
-    } else if (saved === 'light') {
-      setDark(false);
-      document.documentElement.classList.remove('dark');
-    } else if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setDark(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setDark(false);
-      document.documentElement.classList.remove('dark');
-    }
+    if (typeof window === 'undefined') return;
+    const saved = localStorage.getItem('theme');
+    let dark = false;
+    if (saved === 'dark') dark = true;
+    else if (saved === 'light') dark = false;
+    else dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDark(dark);
+    if (dark) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
   }, []);
 
-  // When dark changes, update html class and localStorage
-  useEffect(() => {
-    if (dark) {
+  const toggleTheme = () => {
+    const newDark = !isDark;
+    setIsDark(newDark);
+    if (newDark) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-  }, [dark]);
+  };
 
   return (
     <button
       aria-label="Toggle dark mode"
       className="bg-gray-200 dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded shadow focus:outline-none focus:ring"
-      onClick={() => setDark((d) => !d)}
+      onClick={toggleTheme}
       tabIndex={0}
     >
-      {dark ? '🌙 Dark' : '☀️ Light'}
+      {isDark ? '🌙 Dark' : '☀️ Light'}
     </button>
   );
 }
