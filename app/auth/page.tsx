@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import { useAuthStore } from '../../store/auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -75,6 +76,7 @@ const AuthPage = () => {
     }, 1200);
   };
 
+  const login = useAuthStore((s) => s.login);
   const handleOtpVerify = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -83,6 +85,7 @@ const AuthPage = () => {
       if (otpInput === otp) {
         setSuccess(true);
         setOtpError('');
+        login();
         setTimeout(() => {
           router.push('/dashboard');
         }, 800);
