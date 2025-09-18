@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen h-full transition-colors`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen h-full bg-white dark:bg-gray-900 transition-colors`}
         tabIndex={0}
       >
         <GlobalNav />
