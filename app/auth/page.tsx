@@ -47,6 +47,8 @@ const AuthPage = () => {
   const [otpInput, setOtpInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [otpMessage, setOtpMessage] = useState('');
+  const [otpError, setOtpError] = useState('');
 
   const {
     register,
@@ -61,19 +63,26 @@ const AuthPage = () => {
 
   const onSubmit = (data: AuthFormData) => {
     setLoading(true);
+    setOtpMessage('');
+    setOtpError('');
     setTimeout(() => {
       setOtp('123456'); // Simulate OTP
       setOtpSent(true);
       setLoading(false);
+      setOtpMessage('OTP sent to your phone (simulated). Use 123456.');
     }, 1200);
   };
 
   const handleOtpVerify = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setOtpError('');
     setTimeout(() => {
       if (otpInput === otp) {
         setSuccess(true);
+        setOtpError('');
+      } else {
+        setOtpError('Invalid OTP. Please try again.');
       }
       setLoading(false);
     }, 1200);
@@ -138,6 +147,9 @@ const AuthPage = () => {
       {otpSent && (
         <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md mt-4">
           <label className="block mb-1">Enter OTP</label>
+          {otpMessage && (
+            <span className="text-green-600 text-sm block mb-2">{otpMessage}</span>
+          )}
           <input
             type="text"
             value={otpInput}
@@ -153,8 +165,8 @@ const AuthPage = () => {
           >
             {loading ? 'Verifying...' : 'Verify OTP'}
           </button>
-          {otpInput && otpInput !== otp && !loading && (
-            <span className="text-red-500 text-sm block mt-2">Invalid OTP</span>
+          {otpError && (
+            <span className="text-red-500 text-sm block mt-2">{otpError}</span>
           )}
         </form>
       )}
