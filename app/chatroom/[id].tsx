@@ -57,7 +57,7 @@ export default function ChatroomPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-4 bg-white dark:bg-gray-900">
+  <div className="min-h-screen flex flex-col items-center p-4">
       <h2 className="text-xl font-bold mb-4">Chatroom {chatroomId}</h2>
       <div className="w-full max-w-2xl flex-1 overflow-y-auto bg-white dark:bg-gray-800 rounded shadow p-4 mb-4">
         {messages.map((msg) => (

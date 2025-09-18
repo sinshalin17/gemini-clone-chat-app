@@ -99,7 +99,7 @@ const AuthPage = () => {
   // Remove the success message and instead redirect to dashboard
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900">
+  <div className="flex flex-col items-center justify-center min-h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
