@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Gemini Clone Chat App
 
-First, run the development server:
+A fully functional, responsive, and visually appealing frontend for a Gemini-style conversational AI chat application. This project simulates OTP login, chatroom management, AI messaging, image uploads, and a variety of modern UX/UI features.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live Link
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> [Replace with your deployed Vercel/Netlify URL]
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Authentication
+- OTP-based Login/Signup flow using country codes
+- Fetch country data from restcountries.com
+- Simulate OTP send/validation with setTimeout
+- Form validation using React Hook Form + Zod
 
-## Learn More
+### Dashboard
+- List of user’s chatrooms
+- Create/Delete chatrooms
+- Toast notifications for actions
 
-To learn more about Next.js, take a look at the following resources:
+### Chatroom Interface
+- User and simulated AI messages
+- Timestamps
+- Typing indicator ("Gemini is typing...")
+- Fake AI reply after a delay (setTimeout)
+- Throttling Gemini responses
+- Auto-scroll to latest message
+- Reverse infinite scroll (dummy data)
+- Client-side pagination (e.g., 20 per page)
+- Image upload in chat (base64/preview URL)
+- Copy-to-clipboard on message hover
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Global UX Features
+- Mobile Responsive Design
+- Dark Mode Toggle
+- Debounced search bar to filter chatrooms
+- Save auth & chat data using localStorage
+- Loading skeletons for chat messages
+- Toast notifications for key actions
+- Keyboard accessibility for all main interactions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
+- **Framework:** Next.js 15 (App Router)
+- **State Management:** Zustand
+- **Form Validation:** React Hook Form + Zod
+- **Styling:** Tailwind CSS
+- **Deployment:** Vercel or Netlify
 
-## Deploy on Vercel
+## Setup & Run Instructions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Install dependencies:**
+	```bash
+	npm install
+	```
+2. **Run the development server:**
+	```bash
+	npm run dev
+	```
+3. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Folder/Component Structure
+- `/app/auth.tsx` – Authentication (OTP, country code)
+- `/app/dashboard/page.tsx` – Dashboard (chatroom list, create/delete)
+- `/app/chatroom/[id].tsx` – Chatroom interface (AI, messages, features)
+- `/app/layout.tsx` – Global layout, dark mode toggle
+- `/app/globals.css` – Global styles
+
+## Implementation Notes
+- **Throttling, pagination, infinite scroll, and form validation** are implemented client-side with React state and hooks.
+- **AI responses** are simulated with setTimeout and throttling.
+- **Image upload** uses base64/preview URL (no backend).
+- **All data is stored in local state/localStorage for demo purposes.**
+
+## Screenshots
+> [Add screenshots here if desired]
+
+## Deployment
+- Deploy to Vercel or Netlify. Ensure environment is production-ready.
+
+---
+
+### For more details, see the assignment PDF.
