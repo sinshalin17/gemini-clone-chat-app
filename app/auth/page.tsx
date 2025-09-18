@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -42,6 +43,7 @@ const COUNTRY_CODES: CountryCode[] = [
 ];
 
 const AuthPage = () => {
+  const router = useRouter();
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
   const [otpInput, setOtpInput] = useState('');
@@ -81,6 +83,9 @@ const AuthPage = () => {
       if (otpInput === otp) {
         setSuccess(true);
         setOtpError('');
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 800);
       } else {
         setOtpError('Invalid OTP. Please try again.');
       }
@@ -88,14 +93,7 @@ const AuthPage = () => {
     }, 1200);
   };
 
-  if (success) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <h2 className="text-2xl font-bold mb-4">Login Successful!</h2>
-        <p className="text-green-600">Welcome to Gemini Chat</p>
-      </div>
-    );
-  }
+  // Remove the success message and instead redirect to dashboard
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
