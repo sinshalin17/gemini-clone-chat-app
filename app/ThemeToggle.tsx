@@ -2,24 +2,37 @@
 import React, { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-  useEffect(() => {
+  const [dark, setDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark') setDark(true);
+      return document.documentElement.classList.contains('dark');
     }
-  }, []);
+    return false;
+  });
+
+  // Sync state with html class and localStorage
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (dark) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      }
+    if (dark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [dark]);
+
+  // On mount, check localStorage and system preference
+  useEffect(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') setDark(true);
+    else if (saved === 'light') setDark(false);
+    else {
+      // If no preference, use system
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setDark(true);
+      }
+    }
+  }, []);
+
   return (
     <button
       aria-label="Toggle dark mode"
