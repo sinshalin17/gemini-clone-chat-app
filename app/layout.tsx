@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ThemeToggle from "./ThemeToggle";
+import GlobalNav from "./GlobalNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +31,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen h-full bg-gray-50 dark:bg-gray-900 transition-colors`}
         tabIndex={0}
       >
-        {/* ThemeToggle is a client component */}
-        <ThemeToggle />
-        {children}
+  <GlobalNav />
+  {children}
       </body>
     </html>
   );
