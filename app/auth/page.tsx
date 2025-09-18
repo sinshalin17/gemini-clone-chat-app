@@ -89,11 +89,17 @@ export default function AuthPage() {
           >
             <option value="">Select country</option>
             {countries.map((c) => {
-              // Compose full dial code (root + first suffix if available)
-              const dialCode = c.idd.root + (c.idd.suffixes && c.idd.suffixes.length > 0 ? c.idd.suffixes[0] : '');
+              let dialCodes = '';
+              if (c.idd && c.idd.root) {
+                if (c.idd.suffixes && c.idd.suffixes.length > 0) {
+                  dialCodes = c.idd.suffixes.map((s) => c.idd.root + s).join(', ');
+                } else {
+                  dialCodes = c.idd.root;
+                }
+              }
               return (
                 <option key={c.cca2} value={c.cca2}>
-                  {c.name.common} ({dialCode})
+                  {c.name.common} {dialCodes ? `(${dialCodes})` : ''}
                 </option>
               );
             })}
