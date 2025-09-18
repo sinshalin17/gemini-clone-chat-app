@@ -41,7 +41,7 @@ const COUNTRY_CODES: CountryCode[] = [
   // ...add more as needed
 ];
 
-  // No need to fetch countries, use static COUNTRY_CODES
+const AuthPage = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
   const [otpInput, setOtpInput] = useState('');
@@ -75,31 +75,8 @@ const COUNTRY_CODES: CountryCode[] = [
       if (otpInput === otp) {
         setSuccess(true);
       }
-  const COUNTRY_CODES: CountryCode[] = [
-    { name: 'United States', code: '+1' },
-    { name: 'India', code: '+91' },
-    { name: 'United Kingdom', code: '+44' },
-    { name: 'Canada', code: '+1' },
-    { name: 'Australia', code: '+61' },
-    { name: 'Germany', code: '+49' },
-    { name: 'France', code: '+33' },
-    { name: 'Brazil', code: '+55' },
-    { name: 'Japan', code: '+81' },
-    { name: 'China', code: '+86' },
-    { name: 'South Africa', code: '+27' },
-    { name: 'Russia', code: '+7' },
-    { name: 'Mexico', code: '+52' },
-    { name: 'Italy', code: '+39' },
-    { name: 'Spain', code: '+34' },
-    { name: 'Singapore', code: '+65' },
-    { name: 'New Zealand', code: '+64' },
-    { name: 'Pakistan', code: '+92' },
-    { name: 'Bangladesh', code: '+880' },
-    { name: 'Indonesia', code: '+62' },
-    // ...add more as needed
-  ];
       setLoading(false);
-    // Use static COUNTRY_CODES only
+    }, 1200);
   };
 
   if (success) {
@@ -159,11 +136,8 @@ const COUNTRY_CODES: CountryCode[] = [
         ) : null}
       </form>
       {otpSent && (
-              {COUNTRY_CODES.map((c) => (
-                <option key={c.code + c.name} value={c.code}>
-                  {c.name} ({c.code})
-                </option>
-              ))}
+        <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md mt-4">
+          <label className="block mb-1">Enter OTP</label>
           <input
             type="text"
             value={otpInput}
