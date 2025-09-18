@@ -88,12 +88,15 @@ export default function AuthPage() {
             disabled={otpSent}
           >
             <option value="">Select country</option>
-            {countries.map((c) => (
-              <option key={c.cca2} value={c.cca2}>
-                {c.name.common} ({c.idd.root}
-                {c.idd.suffixes ? c.idd.suffixes[0] : ''})
-              </option>
-            ))}
+            {countries.map((c) => {
+              // Compose full dial code (root + first suffix if available)
+              const dialCode = c.idd.root + (c.idd.suffixes && c.idd.suffixes.length > 0 ? c.idd.suffixes[0] : '');
+              return (
+                <option key={c.cca2} value={c.cca2}>
+                  {c.name.common} ({dialCode})
+                </option>
+              );
+            })}
           </select>
           {errors.country && (
             <span className="text-red-500 text-sm">{errors.country.message}</span>
