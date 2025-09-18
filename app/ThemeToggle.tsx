@@ -2,14 +2,27 @@
 import React, { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark');
-    }
-    return false;
-  });
+  const [dark, setDark] = useState(false);
 
-  // Sync state with html class and localStorage
+  // On mount, sync with localStorage or system preference
+  useEffect(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+    if (saved === 'dark') {
+      setDark(true);
+      document.documentElement.classList.add('dark');
+    } else if (saved === 'light') {
+      setDark(false);
+      document.documentElement.classList.remove('dark');
+    } else if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setDark(true);
+      document.documentElement.classList.add('dark');
+    } else {
+      setDark(false);
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // When dark changes, update html class and localStorage
   useEffect(() => {
     if (dark) {
       document.documentElement.classList.add('dark');
@@ -20,23 +33,10 @@ export default function ThemeToggle() {
     }
   }, [dark]);
 
-  // On mount, check localStorage and system preference
-  useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') setDark(true);
-    else if (saved === 'light') setDark(false);
-    else {
-      // If no preference, use system
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setDark(true);
-      }
-    }
-  }, []);
-
   return (
     <button
       aria-label="Toggle dark mode"
-      className="fixed top-4 right-4 z-50 bg-gray-200 dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded shadow focus:outline-none focus:ring"
+      className="bg-gray-200 dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded shadow focus:outline-none focus:ring"
       onClick={() => setDark((d) => !d)}
       tabIndex={0}
     >
