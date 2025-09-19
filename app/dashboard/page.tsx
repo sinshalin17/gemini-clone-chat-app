@@ -48,8 +48,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-8">
-      <h1 className="text-2xl font-bold mb-6">Your Chatrooms</h1>
+  <div className="min-h-screen flex flex-col items-center p-2 sm:p-8">
+  <h1 className="text-xl sm:text-2xl font-bold mb-6 text-center">Your Chatrooms</h1>
       <input
         type="text"
         value={search}
@@ -58,26 +58,26 @@ export default function Dashboard() {
         className="border px-3 py-2 rounded mb-4 w-full max-w-md"
         aria-label="Search chatrooms"
       />
-  <form onSubmit={handleCreate} className="flex gap-2 mb-6" aria-label="Create chatroom form">
+  <form onSubmit={handleCreate} className="flex flex-col sm:flex-row gap-2 mb-6 w-full max-w-md" aria-label="Create chatroom form">
         <input
           type="text"
           value={newRoom}
           onChange={(e) => setNewRoom(e.target.value)}
           placeholder="New chatroom title"
-          className="border px-3 py-2 rounded"
+          className="border px-3 py-2 rounded w-full"
           aria-label="New chatroom title"
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
           aria-label="Create chatroom"
         >
           Create
         </button>
       </form>
-      <ul className="w-full max-w-md space-y-2">
+  <ul className="w-full max-w-md space-y-2">
         {filteredChatrooms.map((room) => (
-          <li key={room.id} className="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <li key={room.id} className="flex flex-col sm:flex-row justify-between items-center bg-white dark:bg-gray-800 p-4 rounded shadow gap-2">
             <Link href={`/chatroom/${room.id}`} className="font-medium hover:underline">
               {room.title}
             </Link>

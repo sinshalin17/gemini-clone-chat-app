@@ -104,10 +104,10 @@ const AuthPage = () => {
   // Remove the success message and instead redirect to dashboard
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen p-2 sm:p-0">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
+        className="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded shadow-md w-full max-w-md"
         aria-label="Login or Signup form"
       >
         <h2 className="text-xl font-bold mb-6">Login / Signup</h2>
@@ -155,7 +155,7 @@ const AuthPage = () => {
         ) : null}
       </form>
   {otpSent && (
-  <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md mt-4" aria-label="OTP verification form">
+  <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded shadow-md w-full max-w-md mt-4" aria-label="OTP verification form">
           <label className="block mb-1">Enter OTP</label>
           {otpMessage && (
             <span className="text-green-600 text-sm block mb-2">{otpMessage}</span>

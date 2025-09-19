@@ -134,12 +134,12 @@ export default function ChatroomPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-4">
-      <h2 className="text-xl font-bold mb-4">Chatroom {chatroomId}</h2>
+    <div className="min-h-screen flex flex-col items-center p-2 sm:p-4">
+      <h2 className="text-lg sm:text-xl font-bold mb-4 text-center break-words">Chatroom {chatroomId}</h2>
       <div
         ref={containerRef}
-        className="w-full max-w-2xl flex-1 overflow-y-auto bg-white dark:bg-gray-800 rounded shadow p-4 mb-4"
-        style={{ maxHeight: 500 }}
+        className="w-full max-w-2xl flex-1 overflow-y-auto bg-white dark:bg-gray-800 rounded shadow p-2 sm:p-4 mb-4"
+        style={{ maxHeight: '60vh' }}
       >
         <div ref={messagesTopRef} />
         {loadingMore && (
@@ -157,7 +157,7 @@ export default function ChatroomPage() {
             className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} mb-2`}
           >
             <div
-              className={`relative px-4 py-2 rounded-lg max-w-xs break-words group transition-colors duration-200 ${
+              className={`relative px-2 sm:px-4 py-2 rounded-lg max-w-[80vw] sm:max-w-xs break-words group transition-colors duration-200 ${
                 msg.sender === 'user'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 dark:bg-gray-700 text-black dark:text-white'
@@ -197,16 +197,16 @@ export default function ChatroomPage() {
         )}
         <div ref={messagesEndRef} />
       </div>
-  <form onSubmit={sendMessage} className="w-full max-w-2xl flex gap-2 items-center" aria-label="Send message form">
+  <form onSubmit={sendMessage} className="w-full max-w-2xl flex flex-col sm:flex-row gap-2 items-center" aria-label="Send message form">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 border rounded px-3 py-2"
+          className="flex-1 border rounded px-3 py-2 w-full"
           placeholder="Type your message..."
           aria-label="Type your message"
         />
-        <label className="cursor-pointer bg-gray-200 dark:bg-gray-700 px-2 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+  <label className="cursor-pointer bg-gray-200 dark:bg-gray-700 px-2 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition mt-2 sm:mt-0">
           <input
             type="file"
             accept="image/*"
@@ -216,11 +216,11 @@ export default function ChatroomPage() {
           <span role="img" aria-label="Upload">📷</span>
         </label>
         {image && (
-          <img src={image} alt="preview" className="h-10 w-10 object-cover rounded" />
+          <img src={image} alt="preview" className="h-10 w-10 object-cover rounded mt-2 sm:mt-0" />
         )}
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
           aria-label="Send message"
         >
           Send
