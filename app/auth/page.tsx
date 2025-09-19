@@ -52,6 +52,7 @@ const AuthPage = () => {
   const [success, setSuccess] = useState(false);
   const [otpMessage, setOtpMessage] = useState('');
   const [otpError, setOtpError] = useState('');
+  const [toast, setToast] = useState('');
 
   const {
     register,
@@ -85,12 +86,16 @@ const AuthPage = () => {
       if (otpInput === otp) {
         setSuccess(true);
         setOtpError('');
+        setToast('OTP verified! Redirecting...');
         login();
         setTimeout(() => {
+          setToast('');
           router.push('/dashboard');
-        }, 800);
+        }, 1200);
       } else {
         setOtpError('Invalid OTP. Please try again.');
+        setToast('OTP verification failed.');
+        setTimeout(() => setToast(''), 1500);
       }
       setLoading(false);
     }, 1200);
@@ -99,7 +104,7 @@ const AuthPage = () => {
   // Remove the success message and instead redirect to dashboard
 
   return (
-  <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
@@ -145,7 +150,7 @@ const AuthPage = () => {
           </button>
         ) : null}
       </form>
-      {otpSent && (
+  {otpSent && (
         <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md mt-4">
           <label className="block mb-1">Enter OTP</label>
           {otpMessage && (
@@ -170,6 +175,11 @@ const AuthPage = () => {
             <span className="text-red-500 text-sm block mt-2">{otpError}</span>
           )}
         </form>
+      )}
+      {toast && (
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded shadow-lg z-50">
+          {toast}
+        </div>
       )}
     </div>
   );

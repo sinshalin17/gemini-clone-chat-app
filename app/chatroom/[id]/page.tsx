@@ -100,6 +100,8 @@ export default function ChatroomPage() {
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setImage(null);
+    setToast('Message sent!');
+    setTimeout(() => setToast(''), 1000);
     setIsTyping(true);
     setTimeout(() => {
       const aiMsg: Message = {

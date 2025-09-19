@@ -37,14 +37,14 @@ export default function Dashboard() {
       { id: Date.now().toString(), title: newRoom.trim() },
     ]);
     setNewRoom('');
-    setToast('Chatroom created!');
-    setTimeout(() => setToast(''), 1500);
+  setToast('Chatroom created!');
+  setTimeout(() => setToast(''), 1200);
   };
 
   const handleDelete = (id: string) => {
     setChatrooms((prev) => prev.filter((c) => c.id !== id));
-    setToast('Chatroom deleted!');
-    setTimeout(() => setToast(''), 1500);
+  setToast('Chatroom deleted!');
+  setTimeout(() => setToast(''), 1200);
   };
 
   return (
