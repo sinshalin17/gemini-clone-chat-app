@@ -28,7 +28,13 @@ export default function ChatroomPage() {
   // Pagination state
   const PAGE_SIZE = 20;
   const [page, setPage] = useState(1); // 1-based
-  const [messages, setMessages] = useState<Message[]>(() => DUMMY_MESSAGES.slice(-PAGE_SIZE));
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(`chat-messages-${chatroomId}`);
+      if (saved) return JSON.parse(saved);
+    }
+    return DUMMY_MESSAGES.slice(-PAGE_SIZE);
+  });
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [toast, setToast] = useState('');
@@ -38,6 +44,13 @@ export default function ChatroomPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hasMore, setHasMore] = useState(DUMMY_MESSAGES.length > PAGE_SIZE);
   const [loadingMore, setLoadingMore] = useState(false);
+
+  // Persist messages to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(`chat-messages-${chatroomId}`, JSON.stringify(messages));
+    }
+  }, [messages, chatroomId]);
 
   // Scroll to bottom on new message
   useEffect(() => {
