@@ -108,6 +108,7 @@ const AuthPage = () => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
+        aria-label="Login or Signup form"
       >
         <h2 className="text-xl font-bold mb-6">Login / Signup</h2>
         <div className="mb-4">
@@ -116,6 +117,7 @@ const AuthPage = () => {
             {...register('country')}
             className="w-full border rounded px-3 py-2"
             disabled={otpSent}
+            aria-label="Select country"
           >
             <option value="">Select country</option>
             {COUNTRY_CODES.map((c) => (
@@ -135,6 +137,7 @@ const AuthPage = () => {
             {...register('phone')}
             className="w-full border rounded px-3 py-2"
             disabled={otpSent}
+            aria-label="Phone number"
           />
           {errors.phone && (
             <span className="text-red-500 text-sm">{errors.phone.message}</span>
@@ -145,13 +148,14 @@ const AuthPage = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
             disabled={loading}
+            aria-label="Send OTP"
           >
             {loading ? 'Sending OTP...' : 'Send OTP'}
           </button>
         ) : null}
       </form>
   {otpSent && (
-        <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md mt-4">
+  <form onSubmit={handleOtpVerify} className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md mt-4" aria-label="OTP verification form">
           <label className="block mb-1">Enter OTP</label>
           {otpMessage && (
             <span className="text-green-600 text-sm block mb-2">{otpMessage}</span>
@@ -163,11 +167,13 @@ const AuthPage = () => {
             className="w-full border rounded px-3 py-2 mb-2"
             maxLength={6}
             disabled={loading}
+            aria-label="Enter OTP"
           />
           <button
             type="submit"
             className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
             disabled={loading}
+            aria-label="Verify OTP"
           >
             {loading ? 'Verifying...' : 'Verify OTP'}
           </button>

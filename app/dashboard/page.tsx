@@ -58,17 +58,19 @@ export default function Dashboard() {
         className="border px-3 py-2 rounded mb-4 w-full max-w-md"
         aria-label="Search chatrooms"
       />
-      <form onSubmit={handleCreate} className="flex gap-2 mb-6">
+  <form onSubmit={handleCreate} className="flex gap-2 mb-6" aria-label="Create chatroom form">
         <input
           type="text"
           value={newRoom}
           onChange={(e) => setNewRoom(e.target.value)}
           placeholder="New chatroom title"
           className="border px-3 py-2 rounded"
+          aria-label="New chatroom title"
         />
         <button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          aria-label="Create chatroom"
         >
           Create
         </button>
@@ -82,6 +84,7 @@ export default function Dashboard() {
             <button
               onClick={() => handleDelete(room.id)}
               className="text-red-500 hover:underline"
+              aria-label={`Delete chatroom ${room.title}`}
             >
               Delete
             </button>

@@ -163,7 +163,16 @@ export default function ChatroomPage() {
                   : 'bg-gray-200 dark:bg-gray-700 text-black dark:text-white'
               }`}
               onClick={() => handleCopy(msg.text)}
-              title="Click to copy"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleCopy(msg.text);
+                }
+              }}
+              tabIndex={0}
+              aria-label="Copy message to clipboard"
+              role="button"
+              title="Click or press Enter/Space to copy"
               style={{ cursor: 'pointer' }}
             >
               {msg.image && (
@@ -188,13 +197,14 @@ export default function ChatroomPage() {
         )}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={sendMessage} className="w-full max-w-2xl flex gap-2 items-center">
+  <form onSubmit={sendMessage} className="w-full max-w-2xl flex gap-2 items-center" aria-label="Send message form">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 border rounded px-3 py-2"
           placeholder="Type your message..."
+          aria-label="Type your message"
         />
         <label className="cursor-pointer bg-gray-200 dark:bg-gray-700 px-2 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
           <input
@@ -211,6 +221,7 @@ export default function ChatroomPage() {
         <button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          aria-label="Send message"
         >
           Send
         </button>
