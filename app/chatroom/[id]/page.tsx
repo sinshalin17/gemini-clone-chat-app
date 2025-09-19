@@ -141,7 +141,13 @@ export default function ChatroomPage() {
       >
         <div ref={messagesTopRef} />
         {loadingMore && (
-          <div className="flex justify-center mb-2 text-xs text-gray-500">Loading older messages...</div>
+          <div className="flex flex-col gap-2 mb-2">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex">
+                <div className="h-8 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+              </div>
+            ))}
+          </div>
         )}
         {messages.map((msg) => (
           <div
@@ -171,8 +177,10 @@ export default function ChatroomPage() {
         ))}
         {isTyping && (
           <div className="flex justify-start mb-2">
-            <div className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-black dark:text-white animate-pulse">
-              Gemini is typing...
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
+              <div className="h-8 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+              <span className="ml-2 text-xs text-gray-500 dark:text-gray-300">Gemini is typing...</span>
             </div>
           </div>
         )}
